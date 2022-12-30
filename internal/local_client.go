@@ -14,6 +14,7 @@ type LocalClient struct {
 var _ ClientInterface = (*LocalClient)(nil)
 
 func NewLocalClient() ClientInterface {
+	// return &LocalClient{address: "http://localhost:8545"}
 	return &LocalClient{address: "http://localhost:8545"}
 }
 

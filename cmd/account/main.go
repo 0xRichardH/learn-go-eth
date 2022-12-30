@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"0x4richard.eth/learning/internal"
+	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/rs/zerolog"
 )
 
@@ -37,4 +38,16 @@ func main() {
 		zerolog.Ctx(ctx).Fatal().Err(errPB).Msg("failed to get pending balance")
 	}
 	fmt.Println(pendingBalance)
+
+	blockHeader(ctx, client)
+}
+
+func blockHeader(ctx context.Context, client *ethclient.Client) {
+	header, err := client.HeaderByNumber(ctx, nil)
+	if err != nil {
+		zerolog.Ctx(ctx).Fatal().Err(err).Msg("failed to get header")
+		return
+	}
+
+	fmt.Println(header.Number.String())
 }
